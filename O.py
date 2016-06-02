@@ -8,14 +8,17 @@ def init():
     sets[4][3] = 2
     sets[4][4] = 1
 
+
 def input(x, y, p):
     d_list = []
+    change = []
     x -= 1
     y -= 1
     if p == 1:
         for i in range(8):
             d_x = x + dir_list[i][0]
             d_y = y + dir_list[i][1]
+
             if sets[d_x][d_y] == 2:
                 d_list.append(dir_list[i])
             else:
@@ -29,24 +32,36 @@ def input(x, y, p):
             stack = []
             d_x = x + d_list[i][0]
             d_y = y + d_list[i][1]
+
             while 1:
                 stack.append((d_x, d_y))
                 d_x += d_list[i][0]
                 d_y += d_list[i][1]
+
                 if sets[d_x][d_y] == 1:
+                    change = change + stack
                     break
                 elif sets[d_x][d_y] == 0:
                     stack = []
                     break
-            while len(stack) != 0:
-                (a, b) = stack.pop()
-                sets[a][b] = 1
-        sets[x][y] = 1
+
+        if len(change) == 0:
+            print "Can't input"
+            return 1
+
+        while len(change) != 0:
+            (a, b) = change.pop()
+            sets[a][b] = 1
+            if len(change) == 0:
+                sets[x][y] = 1
 
     else:
+        change = []
+
         for i in range(8):
             d_x = x + dir_list[i][0]
             d_y = y + dir_list[i][1]
+
             if sets[d_x][d_y] == 1:
                 d_list.append(dir_list[i])
             else:
@@ -60,45 +75,90 @@ def input(x, y, p):
             stack = []
             d_x = x + d_list[i][0]
             d_y = y + d_list[i][1]
+
             while 1:
                 stack.append((d_x, d_y))
                 d_x += d_list[i][0]
                 d_y += d_list[i][1]
+
                 if sets[d_x][d_y] == 2:
+                    change = change + stack
                     break
                 elif sets[d_x][d_y] == 0:
                     stack = []
                     break
-            while len(stack) != 0:
-                (a, b) = stack.pop()
-                sets[a][b] = 2
-        sets[x][y] = 2
+
+        if len(change) == 0:
+            print "Can't input"
+            return 1
+
+        while len(change) != 0:
+            (a, b) = change.pop()
+            sets[a][b] = 2
+            if len(change) == 0:
+                sets[x][y] = 2
+
 
 def determine(p):
     stack = []
 
     for i in range(8):
         for j in range(8):
+
             if sets[i][j] == p:
                 for k in range(8):
                     d_x = i + dir_list[k][0]
                     d_y = j + dir_list[k][1]
-                    if sets[d_x][d_y] == 0:
+
+                    if sets[d_x][d_y] != p:
                         stack.append((d_x, d_y))
+
     if len(stack) == 0:
         print "Next turn"
-    else:
-        print stack
 
 
+def finish():
+    p_1 = 0
+    p_2 = 0
 
-init()
-for i in range(8):
-    print sets[i]
-print "\n"
-input(4, 3, 2)
-determine(1)
-input(3, 5, 1)
-determine(2)
-for i in range(8):
-    print sets[i]
+    for i in range(8):
+        for j in range(8):
+            if sets[i][j] == 1:
+                p_1 += 1
+            elif sets[i][j] == 2:
+                p_2 += 1
+
+    if p_1 + p_2 > 63:
+        if p_1 > p_2:
+            print "Player1's Win!!"
+        elif p_2 > p_1:
+            print "Player2's Win!!"
+        print "Finish game"
+
+
+def __main__():
+    init()
+    n = 0
+    while 1:
+        for i in range(8):
+            print sets[i]
+
+        n += 1
+
+        if n % 2 == 1:
+            n = 1
+            t = determine(1)
+        else:
+            n = 2
+            t = determine(2)
+
+        if t == 1:
+            continue
+        else:
+            x = int(raw_input("Input x:"))
+            y = int(raw_input("Input y:"))
+            input(x, y, n)
+
+        finish()
+
+__main__()
