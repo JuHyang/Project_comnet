@@ -20,10 +20,10 @@ class RegistrationForm(forms.Form):
             user = User.objects.get(username__iexact=self.cleaned_data['username'])
         except User.DoesNotExist:
             return self.cleaned_data['username']
-        raise forms.ValidationError(_("The username already exists. Please try another one."))
+        raise forms.ValidationError(_("존재하는 ID 입니다."))
 
     def clean(self):
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
-                raise forms.ValidationError(_("The two password fields did not match."))
+                raise forms.ValidationError(_("비밀번호와 비밀번호 확인이 다릅니다."))
         return self.cleaned_data

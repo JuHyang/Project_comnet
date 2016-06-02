@@ -8,7 +8,7 @@ from django.template import RequestContext
 
 
 @csrf_protect
-def register(request):
+def register(request): #회원가입 요청일때, 일어나는 함수 임.
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():

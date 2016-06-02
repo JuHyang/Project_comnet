@@ -17,7 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from login.views import *
 
-urlpatterns = [
+urlpatterns = [ #url 패턴에 따른 동작 설정 -> login.view로 넘어
     url(r'^admin/', admin.site.urls),
     url(r'^$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', logout_page),
