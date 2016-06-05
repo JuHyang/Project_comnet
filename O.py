@@ -10,6 +10,7 @@ def init():
 
 
 def input(x, y, p):
+    # type: (object, object, object) -> object
     d_list = []
     change = []
     x -= 1
@@ -86,6 +87,7 @@ def input(x, y, p):
                     break
                 elif sets[d_x][d_y] == 0:
                     stack = []
+
                     break
 
         if len(change) == 0:
@@ -138,27 +140,31 @@ def finish():
 
 def __main__():
     init()
-    n = 0
+    n = 1
     while 1:
         for i in range(8):
             print sets[i]
 
-        n += 1
-
         if n % 2 == 1:
             n = 1
-            t = determine(1)
+            t = determine(n)
         else:
             n = 2
-            t = determine(2)
+            t = determine(n)
 
         if t == 1:
             continue
         else:
+            print "Player", n, "'s turn"
             x = int(raw_input("Input x:"))
             y = int(raw_input("Input y:"))
-            input(x, y, n)
+            t = input(x, y, n)
 
-        finish()
+        if t == 1:
+            continue
+        else:
+            finish()
+            n += 1
+
 
 __main__()
