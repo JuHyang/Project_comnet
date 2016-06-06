@@ -16,8 +16,16 @@
     </div>
     <input type="submit" value="Turn_over">
 </FORM>
-
-
+{%for i in sets%}
+{%for j in i%}
+{%if j==1%}
+<img src="balckball.png">
+{%endif%}
+{%if j==2%}
+<img src="whiteball.png">
+{%endif%}
+{%endfor%}
+{%endfor%}
 
 
 </body>
