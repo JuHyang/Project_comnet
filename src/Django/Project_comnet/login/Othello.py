@@ -9,8 +9,7 @@ def init():
     sets[4][4] = 1
 
 
-def input(x, y, p):
-    # type: (object, object, object) -> object
+def turn(x, y, p):
     d_list = []
     change = []
     x -= 1
@@ -26,7 +25,7 @@ def input(x, y, p):
                 continue
 
         if len(d_list) == 0:
-            print ("Can't input")
+            print("Can't input")
             return 1
 
         for i in range(len(d_list)):
@@ -47,7 +46,7 @@ def input(x, y, p):
                     break
 
         if len(change) == 0:
-            print ("Can't input")
+            print("Can't input")
             return 1
 
         while len(change) != 0:
@@ -69,7 +68,7 @@ def input(x, y, p):
                 continue
 
         if len(d_list) == 0:
-            print ("Can't input")
+            print("Can't input")
             return 1
 
         for i in range(len(d_list)):
@@ -91,7 +90,7 @@ def input(x, y, p):
                     break
 
         if len(change) == 0:
-            print ("Can't input")
+            print("Can't input")
             return 1
 
         while len(change) != 0:
@@ -116,7 +115,7 @@ def determine(p):
                         stack.append((d_x, d_y))
 
     if len(stack) == 0:
-        print ("Next turn")
+        print("Next turn")
 
 
 def finish():
@@ -132,10 +131,10 @@ def finish():
 
     if p_1 + p_2 > 63:
         if p_1 > p_2:
-            print ("Player1's Win!!")
+            print("Player1's Win!!")
         elif p_2 > p_1:
-            print ("Player2's Win!!")
-        print ("Finish game")
+            print("Player2's Win!!")
+        print("Finish game")
 
 
 def __main__():
@@ -143,7 +142,7 @@ def __main__():
     n = 1
     while 1:
         for i in range(8):
-            print (sets[i])
+            print(sets[i])
 
         if n % 2 == 1:
             n = 1
@@ -155,10 +154,10 @@ def __main__():
         if t == 1:
             continue
         else:
-            print ("Player", n, "'s turn")
+            print("Player", n, "'s turn")
             x = int(input("Input x:"))
             y = int(input("Input y:"))
-            t = input(x, y, n)
+            t = turn(y, x, n)
 
         if t == 1:
             continue
