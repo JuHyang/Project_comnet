@@ -3,6 +3,9 @@ sets = [[0 for i in range(8)] for i in range(8)]
 dir_list = [(-1, -1), (0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0)]
 
 def init():
+    for i in range (8) :
+        for j in range(8) :
+            sets[i][j] = 0
     sets[3][3] = 1
     sets[3][4] = 2
     sets[4][3] = 2

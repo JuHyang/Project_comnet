@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamerooms</title>
+</head>
+<body>
+<div>
+
+    <img src="../static/game/board.jpg" width ="500" height="500">
+</div>
+
+{%for i in sets%}
+    {%for j in i%}
+        {%if j == 1%}
+            <img src="../static/game/blackball.png" width ="50" height="50" hspace="100" vspace="100">
+        {%endif%}
+        {%if j == 2%}
+            <img src="../static/game/whiteball.png" width ="50" height="50" hspace="100" vspace="100">
+        {%endif%}
+    {%endfor%}
+{%endfor%}
+
+<FORM ACTION="" METHOD="post">
+    <div class="Data">
+        <div class="row">
+            <input type="text" name="x" placeholder=".row Data" maxlength=2>
+        </div>
+        <div class="col">
+            <input type="text" name="y" placeholder=".col Data" maxlength=2>
+        </div>
+    </div>
+    <input type="submit" value="Turn_over">
+</FORM>
+
+</body>
+</html>

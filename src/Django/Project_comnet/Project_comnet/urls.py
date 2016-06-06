@@ -26,5 +26,5 @@ urlpatterns = [ #url 패턴에 따른 동작 설정 -> login.view로 넘어
     url(r'^register/$', register),
     url(r'^register/success/$', register_success),
     url(r'^home/$', home),
-
+    url(r'^game/$', game),
 ]
