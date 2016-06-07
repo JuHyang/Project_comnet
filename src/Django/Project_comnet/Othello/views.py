@@ -11,6 +11,7 @@ from django.shortcuts import render
 player_turn = list()
 room = list()
 dir_list = [(-1, -1), (0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0)]
+temp = [[0 for i in range(8)] for i in range(8)]
 room_num = 0
 play_num = 1
 
@@ -215,17 +216,17 @@ def home(request):
 
 @csrf_exempt
 def game(request):
-    context = {'sets': ingame}
+    context = {'sets': temp}
     return render(request, 'gamerooms.html', context)
 
 
 def game_enter(request, user_id):
-
+    global room_num
+    global play_num
+    global room
+    global player_turn
     if request.method == 'GET':
-        global room_num
-        global play_num
-        global room
-        global player_turn
+
         player = User.objects.get(username=user_id)
         player.player_num = play_num
         player.room_num = room_num + 1
@@ -277,8 +278,13 @@ def game_enter(request, user_id):
                     player_turn[room_num_pre - 1] = 2
                 elif player_num_pre == 2:
                     player_turn[room_num_pre - 1] = 1
-
+                sign_finish = finish(room[room_num_pre - 1])
+                if sign_finish == 1:
+                    message = "Player1 is Win !!"
+                elif sign_finish == 2:
+                    message = "Player2 is Win !!"
         text = player_turn[room_num_pre - 1]
 
-        context = {'sets': room[room_num_pre - 1], 'room_num': room_num_pre, 'player_num': player_num_pre, 'text': text, 'message' : message}
+        context = {'sets': room[room_num_pre - 1], 'room_num': room_num_pre, 'player_num': player_num_pre,
+                   'text': text, 'message' : message}
         return render(request, 'gamerooms.html', context)
