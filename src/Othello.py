@@ -130,7 +130,7 @@ def determine(p):
     for i in range(8):
         for j in range(8):
 
-            if sets[i][j] == p:
+            if sets[i][j] == 0:
                 for k in range(8):
                     d_x = i + dir_list[k][0]
                     d_y = j + dir_list[k][1]
