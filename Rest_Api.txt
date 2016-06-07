@@ -1,0 +1,17 @@
+1. ~/admin >> 관리자 페이지
+2. ~/  >> login.html --> login 아이디 비밀번호를 입력하는 html
+3. ~/logout >> login.html --> 로그인 되어있는 상태를 바꾼다. 어느 화면이나 로그아웃 할 수 있도록 해야할거같음.
+4. ~/accounts/login/ >> django.contrib.auth.views.login --> Django 내에서 지원하는 login 기능에 authenticate 를 한다.
+5. ~/register >> /registration/register.html --> 회원가입 페이지이다.
+6. ~/register/success/ >> sucess.html --> 회원가입 성공 안내 페이지.
+7. ~/home/ >> home.html --> 로그인 이후 들어가게 되는 페이지이다.
+	(home에서 게임하는 화면으로 넘어갈지 방 목록을 나타내는 화면으로 넘어갈지 결정하여야 함.)
+
+8. ~/game/ >> Gameroom.html --> Post 방식으로 X,y 좌표를 보내게 되고 Gameroom.html 에 이미지를 변경하여 돌려주게 된다.
+9. ~/game/refresh/ >> Gameroom.thml --> 변경되어있는 사항이 있는지 새로고침을 해서 받을수 있도록 함 (실시간 x / 버튼 생성 필요)
+10. ~/game/out/ >> home.html --> 방에서 나가는 기능. 버튼생성필요
+ 
+
+
+Gameroom.html 에서 상대방의 정보를 같이 출력할수 있도록 ?
+	두명을 묶어놓아야 할것같음

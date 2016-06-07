@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamerooms</title>
+</head>
+<body>
+<FORM NAME="Data" ACTION="Odello.py" METHOD="POST">
+    <div class="Data">
+        <div class="row">
+            <input type="text" name="x" placeholder=".row Data" maxlength=2>
+        </div>
+        <div class="col">
+            <input type="text" name="y" placeholder=".col Data" maxlength=2>
+        </div>
+    </div>
+    <input type="submit" value="Turn_over">
+</FORM>
+{%for i in sets%}
+{%for j in i%}
+{%if j==1%}
+<img src="balckball.png">
+{%endif%}
+{%if j==2%}
+<img src="whiteball.png">
+{%endif%}
+{%endfor%}
+{%endfor%}
+
+
+</body>
+</html>
