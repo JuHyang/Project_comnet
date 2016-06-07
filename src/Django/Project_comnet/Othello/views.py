@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render
 
-ingame = [[0 for i in range(8)] for i in range(8)]
+
 player_turn = list()
 room = list()
 dir_list = [(-1, -1), (0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0)]
@@ -220,18 +220,19 @@ def game(request):
 
 
 def game_enter(request, user_id):
-    global room_num
-    global play_num
-    global room
-    global player_turn
-    if request.method == 'GET':
 
+    if request.method == 'GET':
+        global room_num
+        global play_num
+        global room
+        global player_turn
         player = User.objects.get(username=user_id)
         player.player_num = play_num
         player.room_num = room_num + 1
         player.save()
         if player.player_num == 1:
             room_num += 1
+            ingame = [[0 for i in range(8)] for i in range(8)]
             room.append(ingame)
             player_turn.append(1)
             room[room_num - 1][3][3] = 1
