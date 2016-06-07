@@ -15,16 +15,18 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from login.views import *
+from Othello.views import *
 
 
-urlpatterns = [ #url 패턴에 따른 동작 설정 -> login.view로 넘어
+urlpatterns = [ #url 패턴에 따른 동작 설정 -> Othello.view로 넘어
     url(r'^admin/', admin.site.urls),
     url(r'^$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', logout_page),
-    url(r'^accounts/login/$', 'django.contrib.auth.views.login'), # If user is not login it will redirect to login page
+    url(r'^accounts/Othello/$', 'django.contrib.auth.views.login'), # If user is not Othello it will redirect to Othello page
     url(r'^register/$', register),
     url(r'^register/success/$', register_success),
     url(r'^home/$', home),
     url(r'^game/$', game),
+    url(r'^game/(?P<user_id>.+)', game_enter),
+
 ]

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamerooms</title>
+</head>
+<body>
+
+Room number : {{ room_num }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/home">Room out</a><br>
+Player number : {{ player_num }}<br>
+{{ text }}'s player turn<br>
+<p><h1>{{ message }}</h1></p>
+<div>
+    <div style="position: absolute;">
+    <table>
+        {%for i in sets%}
+        <tr>
+            {%for j in i%}
+            <td>
+                {%if j == 1%}
+                    <div style="position: relative;"><img src="../static/game/blackball.png" width ="50" height="50"></div>
+                {%endif%}
+                {%if j == 2%}
+                   <div style="position: relative;"><img src="../static/game/whiteball.png" width ="50" height="50"></div>
+                {%endif%}
+                {%if j == 0%}
+                   <div style="position: relative;"><img src="../static/game/blank.png" width ="50" height="50"></div>
+                {%endif%}
+            </td>
+            {%endfor%}
+         </tr>
+        {%endfor%}
+    </table>
+    </div>
+    <img src="../static/game/board.PNG" width ="435" height="465">
+</div>
+
+<FORM ACTION="" METHOD="post">{% csrf_token %}
+    <div class="Data">
+        <div class ="player">
+            <input type="hidden" value = "{{ room_num }}" name="room_num" >
+        </div>
+        <div class ="player_num">
+            <input type="hidden" value = "{{ player_num }}" name="player_num">
+        </div>
+        <div class="row">
+            가로줄 몇번째 ? : <input type="text" name="x" placeholder="input X" maxlength=2>
+        </div>
+        <div class="col">
+            세로줄 몇번째 ? : <input type="text" name="y" placeholder="input Y" maxlength=2>
+        </div>
+    </div>
+    <input type="submit" value="Turn_over">
+</FORM>
+<FORM ACTION="" METHOD="post">{% csrf_token %}
+        <div class="Data">
+            <div class ="player">
+                <input type="hidden" value = "{{ room_num }}" name="room_num" >
+            </div>
+            <div class ="player_num">
+                <input type="hidden" value = "{{ player_num }}" name="player_num">
+            </div>
+            <div class="row">
+                <input type="hidden" name="x" value ="5">
+            </div>
+            <div class="col">
+                <input type="hidden" name="y" value="5">
+            </div>
+        </div>
+            <input type="submit" value="refresh">
+    </FORM>
+
+
+
+</body>
+</html>
