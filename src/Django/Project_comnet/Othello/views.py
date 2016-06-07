@@ -246,6 +246,7 @@ def game_enter(request, user_id):
                    'text': player_turn[room_num - 1]}
         return render(request, 'gamerooms.html', context)
     else:
+        message = "잠시만 기다려주세요"
         text = 0
         x = int(request.POST['x'])
         y = int(request.POST['y'])
