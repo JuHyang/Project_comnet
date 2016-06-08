@@ -126,25 +126,47 @@ def turn(x, y, p, sets):
 
 
 def determine(p, sets):
-    stack = []
+    con = 0
 
-    for i in range(8):
-        for j in range(8):
+    for x in range(8):
+        for y in range(8):
+            d_list = []
 
-            if sets[i][j] == 0:
-                for k in range(8):
-                    d_x = i + dir_list[k][0]
-                    d_y = j + dir_list[k][1]
+            if sets[x][y] == 0:
+                for i in range(8):
+                    d_x = x + dir_list[i][0]
+                    d_y = y + dir_list[i][1]
 
                     if d_x > 7 or d_x < 0 or d_y > 7 or d_y < 0:
                         continue
 
                     if sets[d_x][d_y] != p and sets[d_x][d_y] != 0:
-                        stack.append((d_x, d_y))
+                        d_list.append(dir_list[i])
 
-    if len(stack) == 0:
+                for j in range(len(d_list)):
+                    d_x = x + d_list[j][0]
+                    d_y = y + d_list[j][1]
+
+                    if d_x > 7 or d_x < 0 or d_y > 7 or d_y < 0:
+                        continue
+
+                    while 1:
+                        d_x += d_list[j][0]
+                        d_y += d_list[j][1]
+
+                        if d_x > 7 or d_x < 0 or d_y > 7 or d_y < 0:
+                            break
+
+                        if sets[d_x][d_y] == p:
+                            con += 1
+                            break
+                        elif sets[d_x][d_y] == 0:
+                            break
+
+    if con == 0:
         return 1
-    return 0
+    else:
+        return 0
 
 
 def finish(sets):
@@ -250,41 +272,47 @@ def game_enter(request, user_id):
     else:
         message = "잠시만 기다려주세요"
         text = 0
-        x = int(request.POST['x'])
-        y = int(request.POST['y'])
-        room_num_pre = int(request.POST['room_num'])
+        room_num_pre = int(request.POST['room_num'])    
         player_num_pre = int(request.POST['player_num'])
-        if player_num_pre == player_turn[room_num_pre - 1]:
-            sign_det = determine(player_num_pre, room[room_num_pre - 1])
-            if sign_det == 0:
-                sign_turn = turn(y, x, player_num_pre, room[room_num_pre - 1])
+        if request.POST['x'] != '' and request.POST['y'] != '' :
+            x = int(request.POST['x'])
+            y = int(request.POST['y'])
+            if player_num_pre == player_turn[room_num_pre - 1]:
+                sign_det = determine(player_num_pre, room[room_num_pre - 1])
+                if sign_det == 0:
+                    sign_turn = turn(y, x, player_num_pre, room[room_num_pre - 1])
 
-                if sign_turn == 1:
-                    player_turn[room_num_pre - 1] = player_num_pre
+                    if sign_turn == 1:
+                        player_turn[room_num_pre - 1] = player_num_pre
+                        if x == 0 and y ==0 :
+                            message = ""
+                        else :
+                            message = "거기 못놓음"
+                    else:
+                        if player_num_pre == 1:
+                            player_turn[room_num_pre - 1] = 2
+                        elif player_num_pre == 2:
+                            player_turn[room_num_pre - 1] = 1
+                    sign_finish = finish(room[room_num_pre-1])
+                    if sign_finish == 1 :
+                        message = "Player1 is Win !!"
+                    elif sign_finish == 2:
+                        message = "Player2 is Win !!"
+                    
                 else:
                     if player_num_pre == 1:
                         player_turn[room_num_pre - 1] = 2
                     elif player_num_pre == 2:
                         player_turn[room_num_pre - 1] = 1
-                sign_finish = finish(room[room_num_pre-1])
-                if sign_finish == 1 :
-                    message = "Player1 is Win !!"
-                elif sign_finish == 2:
-                    message = "Player2 is Win !!"
-                else :
-                    message = ""
-            elif sign_det == 1:
-                if player_num_pre == 1:
-                    player_turn[room_num_pre - 1] = 2
-                elif player_num_pre == 2:
-                    player_turn[room_num_pre - 1] = 1
-                sign_finish = finish(room[room_num_pre - 1])
-                if sign_finish == 1:
-                    message = "Player1 is Win !!"
-                elif sign_finish == 2:
-                    message = "Player2 is Win !!"
+                    if determine(1, room[room_num_pre-1]) != 0 and determine(2,room[room_num_pre-1]) != 0 :
+                        sign_finish = finish(room[room_num_pre - 1])
+                        if sign_finish == 1:
+                            message = "Player1 is Win !!"
+                        elif sign_finish == 2:
+                            message = "Player2 is Win !!"
+        else :
+            message = "빈칸 ㄴㄴ해"
         text = player_turn[room_num_pre - 1]
-
         context = {'sets': room[room_num_pre - 1], 'room_num': room_num_pre, 'player_num': player_num_pre,
                    'text': text, 'message' : message}
         return render(request, 'gamerooms.html', context)
