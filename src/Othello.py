@@ -72,8 +72,6 @@ def turn(x, y, p):
                 sets[x][y] = 1
 
     else:
-        change = []
-
         for i in range(8):
             d_x = x + dir_list[i][0]
             d_y = y + dir_list[i][1]
@@ -125,25 +123,47 @@ def turn(x, y, p):
 
 
 def determine(p):
-    stack = []
+    con = 0
 
-    for i in range(8):
-        for j in range(8):
+    for x in range(8):
+        for y in range(8):
+            d_list = []
 
-            if sets[i][j] == 0:
-                for k in range(8):
-                    d_x = i + dir_list[k][0]
-                    d_y = j + dir_list[k][1]
+            if sets[x][y] == 0:
+                for i in range(8):
+                    d_x = x + dir_list[i][0]
+                    d_y = y + dir_list[i][1]
 
                     if d_x > 7 or d_x < 0 or d_y > 7 or d_y < 0:
                         continue
 
                     if sets[d_x][d_y] != p and sets[d_x][d_y] != 0:
-                        stack.append((d_x, d_y))
+                        d_list.append(dir_list[i])
 
-    if len(stack) == 0:
-        print("Next turn")
+                for j in range(len(d_list)):
+                    d_x = x + d_list[j][0]
+                    d_y = y + d_list[j][1]
+
+                    if d_x > 7 or d_x < 0 or d_y > 7 or d_y < 0:
+                        continue
+
+                    while 1:
+                        d_x += d_list[j][0]
+                        d_y += d_list[j][1]
+
+                        if d_x > 7 or d_x < 0 or d_y > 7 or d_y < 0:
+                            break
+
+                        if sets[d_x][d_y] == p:
+                            con += 1
+                            break
+                        elif sets[d_x][d_y] == 0:
+                            break
+
+    if con == 0:
         return 1
+    else:
+        return 0
 
 
 def finish():
@@ -175,10 +195,11 @@ def finish():
 def __main__():
     init()
     n = 1
-    while 1:
-        for i in range(8):
-            print(sets[i])
 
+    for i in range(8):
+        print(sets[i])
+
+    while 1:
         if n % 2 == 1:
             n = 1
             t = determine(n)
@@ -187,21 +208,25 @@ def __main__():
             t = determine(n)
 
         if t == 1:
+            print("Next turn")
+            a += 1
+            n += 1
             continue
         else:
             print("Player", n, "'s turn")
             x = int(input("Input x:"))
             y = int(input("Input y:"))
-            t = turn(y, x, n)
+            tm = turn(y, x, n)
 
-        if t == 1:
+        if tm == 1:
             continue
         else:
-            t = finish()
+            for i in range(8):
+                print(sets[i])
+
+            tmp = finish()
             n += 1
-            if t == 1:
-                for i in range(8):
-                    print(sets[i])
+            if tmp == 1:
                 print("Finish game")
                 break
 
