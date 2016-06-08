@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Gamerooms</title>
+
+    <style type = "text/css">
+    H1 {
+        color : white;
+    }
+
+    .img1 {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    }
+    .img2 {
+    position: absolute;
+    top: 560px;
+    left: 285px;
+    }
+    .img3 {
+    position: absolute;
+    top: 610px;
+    left: 50px;
+    }
+    </style>
 </head>
 <body>
+<img src="http://gi.esmplus.com/tifonkorea/othello/gameroom_top4.png" class="img1" />
 
-Room number : {{ room_num }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/home">Room out</a><br>
-Player number : {{ player_num }}<br>
-{{ text }}'s player turn<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ room_num }}<br>
+
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ player_num }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/home">나가기</a><br>
+&nbsp&nbsp&nbsp&nbsp&nbsp{{ text }}<br>
 <p><h3>{{ message }}</h3></p>
 <div>
     <div style="position: absolute;">
@@ -50,7 +74,7 @@ Player number : {{ player_num }}<br>
             세로줄 몇번째 ? : <input type="text" name="y" placeholder="input Y" maxlength=2>
         </div>
     </div>
-    <input type="submit" value="Turn_over">
+    <input type="submit" value="놓기">
 </FORM>
 <FORM ACTION="" METHOD="post">{% csrf_token %}
         <div class="Data">
@@ -67,7 +91,7 @@ Player number : {{ player_num }}<br>
                 <input type="hidden" name="y" value="0">
             </div>
         </div>
-            <input type="submit" value="refresh">
+            <input type="submit" value="새로고침">
     </FORM>
 
 

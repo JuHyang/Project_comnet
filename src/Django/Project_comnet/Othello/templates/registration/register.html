@@ -1,12 +1,44 @@
 {% extends "base.html" %}
 {% block title %}User Registration{% endblock %}
-{% block head %}User Registration{% endblock %}
+{% block head %}{% endblock %}
 {% block content %}
-    <form method="post" action=".">{% csrf_token %}
+
+
+    <style type = "text/css">
+    body {
+    background-color:white;
+    background-image:url('http://gi.esmplus.com/tifonkorea/othello/registration2.jpg'); 
+    background-repeat: no-repeat;
+    }
+    H1 {
+        color : white;
+    }
+    .table {
+    position: absolute;
+    top: 362px;
+    left: 215px;
+    }
+    .img1 {
+    position: absolute;
+    top: 498px;
+    left: 145px;
+    }
+    .img2 {
+    position: absolute;
+    top: 140px;
+    left: 190px;
+    }
+
+    </style>
+
+
+
+    <form method="post" action="." class="table" />{% csrf_token %}
         <table border="0">
             {{ form.as_table }}
         </table>
-        <input type="submit" value="Register" />
+
+        <input type="image" value="." style="background:URL('http://gi.esmplus.com/tifonkorea/othello/register_button.png'); border:0px; width:160px; height:45px;" class="img2"/ >
     </form>
-    <a href="/">Login</a>
+    <a href="/"><img src="http://gi.esmplus.com/tifonkorea/othello/login.png" class="img1" /></a>
 {% endblock %}

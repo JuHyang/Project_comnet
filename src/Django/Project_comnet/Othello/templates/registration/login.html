@@ -1,17 +1,56 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
-{% block head %}로그인{% endblock %}
+{% block head %}{% endblock %}
 {% block content %}
     {% if form.errors %}
-        <p>아이디나 비밀번호를 다시 확인 해 주세요.</p>
+        <p><img src="http://gi.esmplus.com/tifonkorea/othello/loginalert.png" class="alert" /></p>
     {% endif %}
+    <html>
+
+    <style type = "text/css">
+    body {
+    background-color:white;
+    background-image:url('http://gi.esmplus.com/tifonkorea/othello/login3.jpg'); 
+    background-repeat: no-repeat;
+    }
+    H1 {
+        color : white;
+    }
+    .img1 {
+    position: absolute;
+    top: 560px;
+    left: 90px;
+    }
+    .img2 {
+    position: absolute;
+    top: 558px;
+    left: 300px;
+    }
+    .id {
+    position: absolute;
+    top: 443px;
+    left: 335px;
+    }
+    .alert {
+    position: absolute;
+    top: 370px;
+    left: 135px;
+    }
+
+    </style>
+
+
+
     <form method="post" action=".">{% csrf_token %}
-        <table border="0">
-            <tr><th><label for="id_username">ID:</label></th><td>{{ form.username }}</td></tr>
-            <tr><th><label for="id_password">비밀번호:</label></th><td>{{ form.password }}</td></tr>
+        <table border="0" width="5" class="id"/>
+            <tr><th><label for="id_username"></label></th><td>{{ form.username }}</td></tr>
+            <tr><th><label for="id_password"></label></th><td>{{ form.password }}</td></tr>
         </table>
-        <input type="submit" value="Login" />
+
+        <input type="image" value="." style="background:URL('http://gi.esmplus.com/tifonkorea/othello/login.png'); border:0px; width:160px; height:45px;" class="img1"/ >
         <input type="hidden" name="next" value="/home" />
     </form>
-    <a href="/register">회원가입</a>
+    <a href="/register"><img src="http://gi.esmplus.com/tifonkorea/othello/create.png" class="img2"/></a>
+
+    </html>
 {% endblock %}
