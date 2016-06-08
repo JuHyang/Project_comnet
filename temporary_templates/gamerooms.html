@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gamerooms</title>
+
+    <style type = "text/css">
+    H1 {
+        color : white;
+    }
+
+    .img1 {
+    position: absolute;
+    top: 2px;
+    left: 1px;
+    }
+    .img2 {
+    position: absolute;
+    top: 560px;
+    left: 285px;
+    }
+    .img3 {
+    position: absolute;
+    top: 610px;
+    left: 50px;
+    }
+    </style>
+</head>
+<body>
+<img src="http://gi.esmplus.com/tifonkorea/othello/gameroom_top4.png" class="img1" />
+
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ room_num }}<br>
+
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ player_num }}<br>
+&nbsp&nbsp&nbsp&nbsp{{ text }}<br>
+<p><h3>{{ message }}</h3></p>
+<div>
+    <div style="position: absolute;">
+    <table>
+        {%for i in sets%}
+        <tr>
+            {%for j in i%}
+            <td>
+                {%if j == 1%}
+                    <div style="position: relative;"><img src="../static/game/blackball.png" width ="50" height="50"></div>
+                {%endif%}
+                {%if j == 2%}
+                   <div style="position: relative;"><img src="../static/game/whiteball.png" width ="50" height="50"></div>
+                {%endif%}
+                {%if j == 0%}
+                   <div style="position: relative;"><img src="../static/game/blank.png" width ="50" height="50"></div>
+                {%endif%}
+            </td>
+            {%endfor%}
+         </tr>
+        {%endfor%}
+    </table>
+    </div>
+    <img src="../static/game/board.PNG" width ="435" height="465">
+</div>
+
+<FORM ACTION="" METHOD="post">{% csrf_token %}
+    <div class="Data">
+        <div class ="player">
+            <input type="hidden" value = "{{ room_num }}" name="room_num" >
+        </div>
+        <div class ="player_num">
+            <input type="hidden" value = "{{ player_num }}" name="player_num">
+        </div>
+        <div class="row">
+            가로줄 몇번째 ? : <input type="text" name="x" placeholder="input X" maxlength=2>
+        </div>
+        <div class="col">
+            세로줄 몇번째 ? : <input type="text" name="y" placeholder="input Y" maxlength=2>
+        </div>
+    </div>
+    <input type="submit" value="Turn_over">
+</FORM>
+<FORM ACTION="" METHOD="post">{% csrf_token %}
+        <div class="Data">
+            <div class ="player">
+                <input type="hidden" value = "{{ room_num }}" name="room_num" >
+            </div>
+            <div class ="player_num">
+                <input type="hidden" value = "{{ player_num }}" name="player_num">
+            </div>
+            <div class="row">
+                <input type="hidden" name="x" value ="0">
+            </div>
+            <div class="col">
+                <input type="hidden" name="y" value="0">
+            </div>
+        </div>
+            <input type="submit" value="refresh">
+    </FORM>
+
+
+
+</body>
+</html>
